@@ -22,9 +22,68 @@
 </head>
 
 <body class="bg-[#F8FAFC]">
-    
-    
+    <!-- navbar desing here -->
+    <nav class=" w-11/12 mx-auto flex justify-between bg-white py-5 shadow-sm">
+        <div class="flex items-center ">
+            <i class="fa-brands fa-github text-[35px] mr-2"></i>
+            <h4 class="text-xl font-bold">GitHub Issues Tracker</h4>
+        </div>
+        <div class="flex ">
+            <label class="input">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                        stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </g>
+                </svg>
+                <input type="search" required placeholder="Search" />
+            </label>
+            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Issue</button>
+        </div>
+    </nav>
+
+    <!-- buttons here  -->
+    <section class="max-w-[1110px] mx-auto bg-white mt-14 mb-4">
+        <div class="p-6 space-x-2 shadow-sm">
+            <button class="bnt-issues btn btn-soft btn-primary">All</button>
+            <button class="bnt-issues btn btn-soft btn-primary">open</button>
+            <button class="bnt-issues btn btn-soft btn-primary">All</button>
+        </div>
+    </section>
+
+
+    <!-- issues count here  -->
+    <section class="max-w-[1110px] mx-auto bg-white mb-4 flex justify-between items-center">
+
+        <div class="flex items-center p-9 space-x-2">
+            <div>
+                <img src="assets/Aperture.png" alt="" class="w-7">
+            </div>
+            <div>
+                <h4 class="text-xl font-bold"><span id="all-issues-count">50</span> Issues</h4>
+                <p class="text-gray-400">Track and manage your project issues</p>
+            </div>
+        </div>
+
+        <div class="flex gap-4 pr-4">
+            <p><span><i class="fa-solid fa-circle text-[12px] text-[#00A96E]"></i></span> Open</p>
+            <p><span><i class="fa-solid fa-circle text-[12px] text-[#A855F7]"></i></span> close</p>
+
+        </div>
+
+    </section>
+
+    <!-- all carts issues  are here  -->
+    <section class="max-w-[1110px] mx-auto">
+        <div id="issues-cart-container" class="grid grid-cols-4 gap-3">
+         
+        </div>
+
+    </section>
+
     <script src="script/login.js"></script>
+    <script src="script/main.js"></script>
 </body>
 
 </html>

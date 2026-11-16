@@ -1,4 +1,5 @@
 # [Live link Gtihub Page: ](https://mozzammelrobi.github.io/Github-Issue-Tracker/)
+# [Live link netlify : ](https://github-issues-tracker24.netlify.app/)
 
 # GitHub Issues Tracker
 

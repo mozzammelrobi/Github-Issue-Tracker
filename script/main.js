@@ -1,10 +1,14 @@
 const createLevels = (levels) => {
-    console.log(levels)
     const HtmlLevels = levels.map((level) => `<span class="text-gray-600 px-2 bg-red-100 text-[12px] rounded-full">${level}</span>`)
     const elements = HtmlLevels.join(' ')
-    console.log(HtmlLevels)
-    console.log('with row element : ', elements)
+
     return elements;
+}
+
+const removeActive = () => {
+    document.getElementById('btn-all').classList.remove('active')
+    document.getElementById('btn-open').classList.remove('active')
+    document.getElementById('btn-closed').classList.remove('active')
 }
 
 const loadAllIssues = () => {
@@ -35,6 +39,7 @@ const displayAllIssues = (issues) => {
     document.getElementById('all-issues-count').innerText = issues.length
 
     const issueCartContainer = document.getElementById('issues-cart-container')
+    issueCartContainer.innerHTML = ' '
 
     // console.log(issues)
     issues.forEach(issue => {
@@ -42,7 +47,7 @@ const displayAllIssues = (issues) => {
         const date2 = new Date(issue.updatedAt);
         const normalDate = date.toLocaleDateString('en-GB');
         const normalDate2 = date2.toLocaleDateString('en-GB');
-        // console.log(issue)
+
         const issueDiv = document.createElement('div')
         issueDiv.innerHTML = `
            <!-- cart one -->
@@ -90,5 +95,60 @@ const displayAllIssues = (issues) => {
         issueCartContainer.appendChild(issueDiv)
     });
 }
+
+// filter out and display data with filter
+const allBtns = document.querySelectorAll('.bnt-issues')
+allBtns.forEach(btn => {
+    const issueCartContainer = document.getElementById('issues-cart-container')
+    const url = 'https://phi-lab-server.vercel.app/api/v1/lab/issues'
+
+    btn.addEventListener('click', (event) => {
+
+
+        // const allButtons = document.getElementsByClassName('bnt-issues')
+        // allButtons.classList.remove('active')
+        // console.log(allButtons)
+
+        removeActive()
+        // add active class when button is click
+        const clickedBtn = event.target
+        clickedBtn.classList.add('active')
+        console.log(clickedBtn)
+
+        const clickBtn = event.target.innerText
+        if (clickBtn === 'All') {
+            fetch(url)
+                .then(res => res.json())
+                .then(data => displayAllIssues(data.data))
+        }
+        if (clickBtn === 'open') {
+            issueCartContainer.innerHTML = ' '
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    const allDatas = data.data
+
+                    const filterIssues = allDatas.filter((data) => data.status === 'open')
+                    console.log(filterIssues)
+
+                    displayAllIssues(filterIssues)
+
+                })
+        }
+        if (clickBtn === 'closed') {
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    const allDatas = data.data
+
+                    const filterIssues = allDatas.filter((data) => data.status === 'closed')
+                    console.log(filterIssues)
+
+                    displayAllIssues(filterIssues)
+
+                })
+        }
+    })
+});
 
 loadAllIssues()

@@ -18,22 +18,14 @@ const loadAllIssues = () => {
         .then(data => displayAllIssues(data.data))
 }
 
+const loadSingleIssue = (id) => {
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => displaySingleIssue(data.data))
+    console.log(id)
+}
 
-// {
-// "id": 1,
-// "title": "Fix navigation menu on mobile devices",
-// "description": "The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.",
-// "status": "open",
-// "labels": [
-// "bug",
-// "help wanted"
-// ],
-// "priority": "high",
-// "author": "john_doe",
-// "assignee": "jane_smith",
-// "createdAt": "2024-01-15T10:30:00Z",
-// "updatedAt": "2024-01-15T10:30:00Z"
-// }
 
 const displayAllIssues = (issues) => {
     document.getElementById('all-issues-count').innerText = issues.length
@@ -51,8 +43,8 @@ const displayAllIssues = (issues) => {
         const issueDiv = document.createElement('div')
         issueDiv.innerHTML = `
            <!-- cart one -->
-            <div 
-            class="cart h-full p-4 shadow-lg bg-white rounded-lg border-t-4 ${issue.status == 'open' ? 'border-green-600' : 'border-red-600'}">
+            <div onclick="loadSingleIssue(${issue.id})"
+            class="cart cursor-pointer h-full p-4 shadow-lg bg-white rounded-lg border-t-4 ${issue.status == 'open' ? 'border-green-600' : 'border-red-600'}">
                 <div class="flex justify-between mb-3">
                     ${issue.status == 'open'
                 ? '  <i class="fa-regular fa-circle-check text-green-600"></i>'
@@ -95,6 +87,44 @@ const displayAllIssues = (issues) => {
         issueCartContainer.appendChild(issueDiv)
     });
 }
+const displaySingleIssue = (issue) => {
+    const issueDetailsContainer = document.getElementById('issue-details-container')
+
+      const date = new Date(issue.createdAt);
+        const date2 = new Date(issue.updatedAt);
+        const normalDate = date.toLocaleDateString('en-GB');
+        const normalDate2 = date2.toLocaleDateString('en-GB');
+
+    issueDetailsContainer.innerHTML = `
+        <div>
+              <h4 class=" text-[30px] font-bold">${issue.title}</h4>
+              <p>${issue.description}</p>
+
+
+                 <button 
+                      class="px-2 ${issue.priority === 'high'
+                ? ' bg-red-100'
+                : issue.priority === 'medium'
+                    ? 'bg-yellow-100 text-yellow-600'
+                    : 'bg-gray-500 text-white'
+            } text-red-500 rounded-full
+                        ">
+                             ${issue.priority}
+                    </button>
+
+               <div class="flex justify-between text-[12px]">
+                        <p># <span>${issue.author}</span></p>
+                        <p>${normalDate}</p>
+                    </div>
+                    <div class="flex justify-between text-[12px]">
+                        <p><span>${issue.assignee}</span> </p>
+                        <p>Update <span>${normalDate2}</span></p>
+                    </div>
+        </div>
+    `
+    console.log(issue)
+    document.getElementById('issue_modal').showModal()
+}
 
 // filter out and display data with filter
 const allBtns = document.querySelectorAll('.bnt-issues')
@@ -104,16 +134,10 @@ allBtns.forEach(btn => {
 
     btn.addEventListener('click', (event) => {
 
-
-        // const allButtons = document.getElementsByClassName('bnt-issues')
-        // allButtons.classList.remove('active')
-        // console.log(allButtons)
-
         removeActive()
         // add active class when button is click
         const clickedBtn = event.target
         clickedBtn.classList.add('active')
-        console.log(clickedBtn)
 
         const clickBtn = event.target.innerText
         if (clickBtn === 'All') {
@@ -129,7 +153,7 @@ allBtns.forEach(btn => {
                     const allDatas = data.data
 
                     const filterIssues = allDatas.filter((data) => data.status === 'open')
-                    console.log(filterIssues)
+                    // console.log(filterIssues)
 
                     displayAllIssues(filterIssues)
 
@@ -142,7 +166,7 @@ allBtns.forEach(btn => {
                     const allDatas = data.data
 
                     const filterIssues = allDatas.filter((data) => data.status === 'closed')
-                    console.log(filterIssues)
+                    // console.log(filterIssues)
 
                     displayAllIssues(filterIssues)
 
@@ -150,5 +174,22 @@ allBtns.forEach(btn => {
         }
     })
 });
+
+
+// search function empllement 
+document.getElementById('search-btn').addEventListener('click', (event) => {
+    const searchInput = document.getElementById('search-input')
+    const search = searchInput.value;
+    
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${search}`
+    console.log(url)
+
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+        displayAllIssues(data.data)
+        removeActive()
+    })
+})
 
 loadAllIssues()

@@ -4,22 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Github Tracker</title>
+    <title>Github Tracker login</title>
 
     <!-- tailwind and daisyui  -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- fontawesome cnd link -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
-     <!-- google font geist  -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+        integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- google font geist  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 
-<body>
-    <h1>Github Issue Tracker</h1>
+<body class="bg-[#F8FAFC]">
+    <!-- login section  -->
+    <section  class="h-screen w-[520px] mx-auto  flex flex-col justify-center items-center space-y-6">
+
+
+        <div class="flex  flex-col items-center justify-center space-y-6">
+            <img src="assets/github-logo.png" alt="">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold">GitHub Issues Tracker</h2>
+                <p class="text-gray-500">Sign in to manage your issues</p>
+            </div>
+        </div>
+        <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+
+            <label class=" font-bold">UserName</label>
+            <input id="user-name" type="text" class="input" placeholder="Enter username" value="admin"/>
+            <label class="label  text-[#4A00FF]">Default: admin</label>
+
+            <label class="font-bold mt-4">Password</label>
+            <input id="password" type="text" class="input" placeholder="Enter Password" value="admin123" />
+            <label class="label text-[#4A00FF]">Default: admin123</label>
+
+            <button id="login-btn" class="btn btn-primary mt-4">Sing In</button>
+        </fieldset>
+    </section>
+
+
+    <script src="script/login.js"></script>
 </body>
 
 </html>
